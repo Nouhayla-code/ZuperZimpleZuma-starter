@@ -1,21 +1,20 @@
 import SimpleLinkedList from "./simplelinkedlist.js";
 
-export {init}
+export { init, getFirstBall, getCannonBall, getNextBall, loadCannon, addRandomBall };
 
 const list = new SimpleLinkedList();
 
 function init() {
   console.log("Model init");
-
 }
 
 function dump() {
   let node = list.head;
   let output = "";
-  while(node != null) {
-    output += '"' + node.data + node.id +'"';
+  while (node != null) {
+    output += '"' + node.data + node.id + '"';
     output += " -> ";
-   
+
     node = node.next;
   }
   output += "null";
@@ -24,17 +23,30 @@ function dump() {
 
 // **** WRAPPERS ****
 function addRandomBall() {
-  // TODO: Implement
+  list.add(randomBall());
 }
 
 function addBall(ball) {
-  // TODO: Implement
+  list.add(ball);
 }
 
-// TODO: Implement more functions
+function removeBall(index) {
+  list.remove(index);
+}
+
+function getFirstBall() {
+  return list.head;
+}
+
+function getNextBall(node) {
+  return node.next;
+}
+function insertBallAfter(data, node) {
+  return list.insertAfter(data, node);
+}
 
 function numberOfBalls() {
-  // TODO: Implement
+  return list.size();
 }
 
 // **** CANNON ****
@@ -50,15 +62,43 @@ function getCannonBall() {
 
 // **** MATCHES ****
 
-// TODO: Implement functions to find and remove matches
+function checkMatches(node) {
+  const matches = [];
 
+  matches.push(node);
+  let lookat = node;
+
+  //find matches før node
+  while (lookat != list.head && lookat.prev.data == node.data) {
+    matches.push(lookat.prev);
+    lookat = lookat.prev;
+  }
+  lookat = node;
+  while (lookat != list.tail && lookat.next.data == node.data) {
+    matches.push(lookat.next);
+    lookat = lookat.next;
+  }
+
+  if (matches.length > 2) {
+    for (let index = 0; index < matches.length; index++) {
+      const element = array[index];
+    }
+  }
+
+  return matches;
+  //find matches efter node
+}
+
+function removeMatches() {
+  for( matches )
+}
 
 // **** BALLS ****
 
-const balls = ["🔴", "🔵","🟡","🟢"];
+const balls = ["🔴", "🔵", "🟡", "🟢"];
 
 function randomBall() {
-  return balls[Math.floor(Math.random()*balls.length)];
+  return balls[Math.floor(Math.random() * balls.length)];
 }
 
 function red() {
@@ -77,4 +117,4 @@ function green() {
   return balls[3];
 }
 
-debugger;
+//debugger;
